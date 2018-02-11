@@ -178,7 +178,7 @@ hr {
   padding-bottom: 2rem;
 
   @media (--md) {
-    flex-basis: 50%;
+    flex-basis: 33%;
     flex-shrink: 0;
   }
 }

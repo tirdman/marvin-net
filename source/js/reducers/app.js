@@ -16,6 +16,7 @@ const actionsMap = {
       counter,
     }));
   },
+
 };
 
 export default function reducer(state = initialState, action = {}) {

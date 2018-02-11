@@ -10,7 +10,7 @@ const devServer = {
   compress: IS_PRODUCTION,
   inline: !IS_PRODUCTION, // Change to false for IE10 dev mode
   hot: !IS_PRODUCTION,
-  host: '0.0.0.0',
+  host: '127.0.0.1',
   disableHostCheck: true, // To enable local network testing
   overlay: true,
   stats,

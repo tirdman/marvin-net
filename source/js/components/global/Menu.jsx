@@ -34,6 +34,20 @@ export default class Menu extends Component {
           <NavLink
             activeClassName='Menu-link--active'
             className='Menu-link'
+            to={ routeCodes.PLANETS }
+          >
+            Planets
+          </NavLink>
+          <NavLink
+            activeClassName='Menu-link--active'
+            className='Menu-link'
+            to={ routeCodes.FILMS }
+          >
+            Films
+          </NavLink>
+          <NavLink
+            activeClassName='Menu-link--active'
+            className='Menu-link'
             to='/404'
           >
             404

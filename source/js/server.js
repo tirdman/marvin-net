@@ -15,13 +15,15 @@ import getServerHtml from 'components/server/ServerHTML';
 import App from 'views/App';
 
 import { getPeopleServer } from 'sagas/people';
+import { getPlanetsServer } from './sagas/planets';
+import { getFilmsServer } from './sagas/films';
 
 // Load SCSS
 import 'index.css';
 
 const app = express();
 const hostname = 'localhost';
-const port = 8080;
+const port = 8081;
 
 // ENV
 const IS_DEVELOPMENT = app.get('env') === 'development';
@@ -35,18 +37,20 @@ app.use('/client', express.static('build/client'));
 function sendResponse(req, res, store) {
   // Dehydrates the state
   // Serialize then another stringify to escape it
-  const dehydratedState = JSON.stringify(Serialize(Immutable).stringify(store.getState()));
+  const dehydratedState = JSON.stringify(
+    Serialize(Immutable).stringify(store.getState()),
+  );
 
   // Context is passed to the StaticRouter and it will attach data to it directly
   const context = {};
 
   // Before sending the request app is rendered to a string
   const appHtml = ReactDOMServer.renderToString(
-    <Provider store={ store }>
-      <StaticRouter location={ req.url } context={ context }>
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
         <App />
       </StaticRouter>
-    </Provider>
+    </Provider>,
   );
 
   // Adds rest of the HTML page
@@ -72,16 +76,18 @@ function handleRequest(req, res, sagas = null, sagaArgs = {}) {
     const tasksEndPromises = config.tasks.map(task => task.done);
 
     // Wait for all saga tasks to finish
-    Promise.all(tasksEndPromises).then(() => {
-      config.tasks.forEach(task => {
-        config.store.dispatch(task.result());
-      });
+    Promise.all(tasksEndPromises)
+      .then(() => {
+        config.tasks.forEach(task => {
+          config.store.dispatch(task.result());
+        });
 
-      sendResponse(req, res, config.store);
-    }).catch(error => {
-      console.log(error); // eslint-disable-line no-console
-      sendResponse(req, res, config.store);
-    });
+        sendResponse(req, res, config.store);
+      })
+      .catch(error => {
+        console.log(error); // eslint-disable-line no-console
+        sendResponse(req, res, config.store);
+      });
   } else {
     sendResponse(req, res, config.store);
   }
@@ -93,6 +99,14 @@ function handleRequest(req, res, sagas = null, sagaArgs = {}) {
 // and object containing saga's options (usually req.params)
 app.get('/people', (req, res) => {
   handleRequest(req, res, [getPeopleServer]);
+});
+
+app.get('/planets', (req, res) => {
+  handleRequest(req, res, [getPlanetsServer]);
+});
+
+app.get('/films', (req, res) => {
+  handleRequest(req, res, [getFilmsServer]);
 });
 
 // All other routes
@@ -112,10 +126,12 @@ app.use((error, req, res) => {
 });
 
 // Start listening
-app.listen(port, (error) => {
+app.listen(port, error => {
   if (error) {
     console.error(error); // eslint-disable-line no-console
   } else {
-    console.info(`\n★★ Listening on port ${ port }. Open up http://${ hostname }:${ port }/ in your browser.\n`); // eslint-disable-line
+    console.info(
+      `\n★★ Listening on port ${port}. Open up http://${hostname}:${port}/ in your browser.\n`,
+    ); // eslint-disable-line
   }
 });

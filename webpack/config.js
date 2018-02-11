@@ -4,7 +4,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const paths = {
-  source: path.join(__dirname, '../source'),
+  source: path.join(__dirname, '../source/'),
   assets: path.join(__dirname, '../source/assets/'),
   css: path.join(__dirname, '../source/css/'),
   fonts: path.join(__dirname, '../source/assets/fonts/'),

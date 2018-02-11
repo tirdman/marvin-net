@@ -5,7 +5,6 @@ import logger from 'dev/logger';
 import Immutable from 'immutable'; // Remove if you are not using server rendering
 import Serialize from 'remotedev-serialize/immutable'; // Remove if you are not using server rendering
 
-
 import rootSaga from 'sagas';
 import rootReducer from 'reducers';
 
@@ -39,27 +38,26 @@ export default (serverSagas = null, sagaOptions = {}) => {
     middleware = applyMiddleware(sagaMiddleware, logger);
 
     // Enable DevTools if browser extension is installed
-    if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) { // eslint-disable-line
+    if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+      // eslint-disable-line
       middleware = compose(
         middleware,
-        window.__REDUX_DEVTOOLS_EXTENSION__() // eslint-disable-line
+        window.__REDUX_DEVTOOLS_EXTENSION__(), // eslint-disable-line
       );
     }
   }
 
   // Create store
   // with initial state if it exists
-  store = createStore(
-    rootReducer,
-    initialState,
-    middleware
-  );
+  store = createStore(rootReducer, initialState, middleware);
 
   // Server render
   // Remove if you are not using server rendering
   if (serverSagas) {
     // Start server sagas
-    const tasks = serverSagas.map(saga => sagaMiddleware.run(saga, sagaOptions));
+    const tasks = serverSagas.map(saga =>
+      sagaMiddleware.run(saga, sagaOptions),
+    );
 
     // Return both store and tasks
     return {

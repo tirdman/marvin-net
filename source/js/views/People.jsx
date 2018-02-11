@@ -18,6 +18,7 @@ export default class People extends Component {
   }
 
   componentWillMount() {
+    console.log("Props: ",this.props);
     const {
       dispatch,
       people,

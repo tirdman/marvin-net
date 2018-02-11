@@ -109,6 +109,16 @@ function getPeople() {
   return fetchResource('people/');
 }
 
+function getPlanets() {
+  return fetchResource('planets/');
+}
+
+function getFilms() {
+  return fetchResource('films/');
+}
+
 export default {
   getPeople,
+  getPlanets,
+  getFilms,
 };
