@@ -8,6 +8,9 @@ import People from 'views/People';
 import Planets from 'views/Planets';
 import Films from 'views/Films';
 import NotFound from 'views/NotFound';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import MyAwesomeReactComponent from 'views/MyAwesomeReactComponent';
 
 
 class App extends Component {
@@ -15,6 +18,10 @@ class App extends Component {
     return (
       <div className='App'>
         <Menu />
+
+        <MuiThemeProvider MyAwesomeReactComponent={MyAwesomeReactComponent}>
+         <MyAwesomeReactComponent />
+        </MuiThemeProvider>
 
         <div className='Page'>
           <Switch>
