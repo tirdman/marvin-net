@@ -8,12 +8,12 @@ export default class Menu extends Component {
     return (
       <div className='Menu'>
         <div className='Menu-logo'>
-          <a href='https://work.co' target='_blank' rel='noreferrer noopener' aria-label='Work & Co website'>
-            <img
-              src={ workAndCoLogoImg }
-              alt='Work & Co logo'
-            />
-          </a>
+          {/*<a href='https://work.co' target='_blank' rel='noreferrer noopener' aria-label='Work & Co website'>*/}
+            {/*<img*/}
+              {/*src={ workAndCoLogoImg }*/}
+              {/*alt='Work & Co logo'*/}
+            {/*/>*/}
+          {/*</a>*/}
         </div>
         <div className='Menu-links'>
           <NavLink
