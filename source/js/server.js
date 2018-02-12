@@ -13,6 +13,9 @@ import Serialize from 'remotedev-serialize/immutable';
 import configureStore from 'config/store';
 import getServerHtml from 'components/server/ServerHTML';
 import App from 'views/App';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
 import { getPeopleServer } from 'sagas/people';
 import { getPlanetsServer } from './sagas/planets';
@@ -31,6 +34,8 @@ const IS_DEVELOPMENT = app.get('env') === 'development';
 // Disabling "Powered by" headers
 app.disable('x-powered-by');
 
+
+
 // Telling server to serve our client app build as static assets
 app.use('/client', express.static('build/client'));
 
@@ -44,11 +49,22 @@ function sendResponse(req, res, store) {
   // Context is passed to the StaticRouter and it will attach data to it directly
   const context = {};
 
+  const muiTheme = getMuiTheme(darkBaseTheme, {
+    userAgent: req.headers['user-agent'],
+  });
+
+
+
+
+
+
   // Before sending the request app is rendered to a string
   const appHtml = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
+        <MuiThemeProvider muiTheme={muiTheme}>
         <App />
+        </MuiThemeProvider>
       </StaticRouter>
     </Provider>,
   );

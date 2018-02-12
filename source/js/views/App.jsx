@@ -8,30 +8,29 @@ import People from 'views/People';
 import Planets from 'views/Planets';
 import Films from 'views/Films';
 import NotFound from 'views/NotFound';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import MyAwesomeReactComponent from 'views/MyAwesomeReactComponent';
-
-
+import RaisedButton from 'material-ui/RaisedButton';
 class App extends Component {
+  constructor(properties, context) {
+    super(properties, context);
+  }
+
   render() {
     return (
-      <div className='App'>
+      <div className="App">
         <Menu />
 
-        <MuiThemeProvider MyAwesomeReactComponent={MyAwesomeReactComponent}>
-         <MyAwesomeReactComponent />
-        </MuiThemeProvider>
 
-        <div className='Page'>
-          <Switch>
-            <Route exact path={ routeCodes.HOME } component={ Home } />
-            <Route path={ routeCodes.PEOPLE } component={ People } />
-            <Route path={ routeCodes.PLANETS } component={ Planets } />
-            <Route path={ routeCodes.FILMS } component={ Films } />
-            <Route path='*' component={ NotFound } />
-          </Switch>
-        </div>
+          <div className="Page">
+            <RaisedButton label="Default" onClick={() => alert('Hello bro')}/>
+            <Switch>
+              <Route exact path={routeCodes.HOME} component={Home} />
+              <Route path={routeCodes.PEOPLE} component={People} />
+              <Route path={routeCodes.PLANETS} component={Planets} />
+              <Route path={routeCodes.FILMS} component={Films} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </div>
+
       </div>
     );
   }
