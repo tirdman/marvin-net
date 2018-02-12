@@ -8,7 +8,7 @@ import People from 'views/People';
 import Planets from 'views/Planets';
 import Films from 'views/Films';
 import NotFound from 'views/NotFound';
-import RaisedButton from 'material-ui/RaisedButton';
+import PaperExampleSimple from 'views/tests/PaperExampleSimple';
 class App extends Component {
   constructor(properties, context) {
     super(properties, context);
@@ -19,18 +19,16 @@ class App extends Component {
       <div className="App">
         <Menu />
 
-
-          <div className="Page">
-            <RaisedButton label="Default" onClick={() => alert('Hello bro')}/>
-            <Switch>
-              <Route exact path={routeCodes.HOME} component={Home} />
-              <Route path={routeCodes.PEOPLE} component={People} />
-              <Route path={routeCodes.PLANETS} component={Planets} />
-              <Route path={routeCodes.FILMS} component={Films} />
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </div>
-
+        <div className="Page">
+          <PaperExampleSimple />
+          <Switch>
+            <Route exact path={routeCodes.HOME} component={Home} />
+            <Route path={routeCodes.PEOPLE} component={People} />
+            <Route path={routeCodes.PLANETS} component={Planets} />
+            <Route path={routeCodes.FILMS} component={Films} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </div>
       </div>
     );
   }
