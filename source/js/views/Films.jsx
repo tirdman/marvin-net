@@ -7,7 +7,9 @@ import { getFilms } from 'actions/films';
   error: state.films.get('error'),
   loading: state.films.get('loading'),
   films: state.films.get('films'),
+  ip: state.configurish.get('ip'),
 }))
+
 export default class Planets extends Component {
   static propTypes = {
     error: PropTypes.string,
@@ -50,12 +52,13 @@ export default class Planets extends Component {
       loading,
       error,
       films,
+      ip
     } = this.props;
 
 
     return (
       <div className='People'>
-        <h1>Films</h1>
+        <h1>Films {ip}</h1>
         { loading && <div>Loading films...</div> }
         { error && error.toString() }
         <div className='People-list'>

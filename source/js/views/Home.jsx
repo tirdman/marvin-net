@@ -7,9 +7,14 @@ import SquareSvg from 'svg/square.svg';
 import TriangleSvg from 'svg/triangle.svg';
 import bookImg from 'img/book2.jpg';
 
+
+
+
 @connect(state => ({
   counter: state.app.get('counter'),
 }))
+
+
 export default class Home extends Component {
   static propTypes = {
     counter: PropTypes.number,
@@ -35,6 +40,10 @@ export default class Home extends Component {
           Boilerplate for kicking off React/Redux applications.
         </p>
 
+
+
+
+
         <h2>About</h2>
 
         <p>
@@ -56,7 +65,11 @@ export default class Home extends Component {
         <div className='Example'>
           <p>Counter: { counter }</p>
           <button onClick={ this.handleTestButtonClick }>
-            Increase
+          Increase
+        </button>
+
+          <button >
+            Test
           </button>
         </div>
 

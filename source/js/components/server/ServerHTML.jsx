@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import { outputFiles } from '../../../../webpack/output-files';
 
-const ServerHTML = ({ appHtml, dehydratedState }) => (
+const ServerHTML = ({ appHtml, dehydratedState, css }) => (
   <html lang='en'>
     <head>
       <meta charSet='utf-8' />
@@ -18,6 +18,8 @@ const ServerHTML = ({ appHtml, dehydratedState }) => (
         id='root'
         dangerouslySetInnerHTML={ { __html: appHtml } } // eslint-disable-line
       />
+      <style id="jss-server-side">${css}</style>
+
       <script
         dangerouslySetInnerHTML={ { __html: `var __MARVIN_DEHYDRATED_STATE = ${ dehydratedState };` } } // eslint-disable-line
       />
@@ -32,9 +34,9 @@ ServerHTML.propTypes = {
   dehydratedState: PropTypes.string,
 };
 
-const getServerHTML = (appHtml, dehydratedState = null) => {
+const getServerHTML = (appHtml, dehydratedState = null, css) => {
   return `<!doctype html>${ ReactDOMServer.renderToString(
-    <ServerHTML appHtml={ appHtml } dehydratedState={ dehydratedState } />
+    <ServerHTML appHtml={ appHtml } dehydratedState={ dehydratedState } css={ css }/>
   ) }`;
 };
 

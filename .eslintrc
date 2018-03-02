@@ -1,3 +1,4 @@
+
 extends:
   eslint-config-airbnb
 
@@ -26,6 +27,7 @@ rules:
   indent: 2
   jsx-quotes: [2, "prefer-single"]
   max-len: ["error", { "code": 120 }]
+  object-curly-spacing: ["error", "never"]
   new-cap: 0
   no-plusplus: 0
   no-return-assign: 0

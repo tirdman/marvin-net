@@ -13,9 +13,11 @@ import Serialize from 'remotedev-serialize/immutable';
 import configureStore from 'config/store';
 import getServerHtml from 'components/server/ServerHTML';
 import App from 'views/App';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+
+import { SheetsRegistry } from 'react-jss/lib/jss';
+import JssProvider from 'react-jss/lib/JssProvider';
+import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from 'material-ui/styles';
+import { green, red, cyan } from 'material-ui/colors';
 
 import { getPeopleServer } from 'sagas/people';
 import { getPlanetsServer } from './sagas/planets';
@@ -34,43 +36,47 @@ const IS_DEVELOPMENT = app.get('env') === 'development';
 // Disabling "Powered by" headers
 app.disable('x-powered-by');
 
-
-
 // Telling server to serve our client app build as static assets
 app.use('/client', express.static('build/client'));
 
 function sendResponse(req, res, store) {
   // Dehydrates the state
   // Serialize then another stringify to escape it
-  const dehydratedState = JSON.stringify(
-    Serialize(Immutable).stringify(store.getState()),
-  );
+  const dehydratedState = JSON.stringify(Serialize(Immutable).stringify(store.getState()));
 
   // Context is passed to the StaticRouter and it will attach data to it directly
   const context = {};
 
-  const muiTheme = getMuiTheme(darkBaseTheme, {
-    userAgent: req.headers['user-agent'],
+  const sheetsRegistry = new SheetsRegistry();
+
+  // Create a theme instance.
+  const theme = createMuiTheme({
+    palette: {
+      primary: cyan,
+      accent: red,
+      type: 'light'
+    }
   });
 
-
-
-
-
+  const generateClassName = createGenerateClassName();
 
   // Before sending the request app is rendered to a string
   const appHtml = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
-        <MuiThemeProvider muiTheme={muiTheme}>
-        <App />
-        </MuiThemeProvider>
+        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+          <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+            <App />
+          </MuiThemeProvider>
+        </JssProvider>
       </StaticRouter>
-    </Provider>,
+    </Provider>
   );
 
+
+  const css = sheetsRegistry.toString()
   // Adds rest of the HTML page
-  const serverHtml = getServerHtml(appHtml, dehydratedState);
+  const serverHtml = getServerHtml(appHtml, dehydratedState, css);
 
   // Context has url, which means `<Redirect>` was rendered somewhere
   if (context.url) {
@@ -137,7 +143,7 @@ app.use((error, req, res) => {
   res.render('error', {
     message: error.message,
     // Display stack trace only in development mode
-    error: IS_DEVELOPMENT ? error : null,
+    error: IS_DEVELOPMENT ? error : null
   });
 });
 
@@ -146,8 +152,6 @@ app.listen(port, error => {
   if (error) {
     console.error(error); // eslint-disable-line no-console
   } else {
-    console.info(
-      `\n★★ Listening on port ${port}. Open up http://${hostname}:${port}/ in your browser.\n`,
-    ); // eslint-disable-line
+    console.info(`\n★★ Listening on port ${port}. Open up http://${hostname}:${port}/ in your browser.\n`); // eslint-disable-line
   }
 });

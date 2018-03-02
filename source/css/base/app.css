@@ -1,13 +1,12 @@
 html {
   font-size: 10px;
+@media (--lg) {
+  font-size: 12px;
+}
 
-  @media (--lg) {
-    font-size: 12px;
-  }
-
-  @media (--xl) {
-    font-size: 14px;
-  }
+@media (--xl) {
+  font-size: 14px;
+}
 }
 
 body {
@@ -19,13 +18,13 @@ body {
   font-size: 1.8rem;
   padding: 2rem;
 
-  @media (--md) {
-    padding: 3rem;
-  }
+@media (--md) {
+  padding: 3rem;
+}
 
-  @media (--lg) {
-    padding: 4rem;
-  }
+@media (--lg) {
+  padding: 4rem;
+}
 }
 
 a {
@@ -80,11 +79,11 @@ button:hover {
   margin: 0 auto 2rem;
   max-width: 60rem;
 
-  @media (--lg) {
-    margin-left: 20rem;
-    margin: 0 0 2rem 20rem;
-    padding-bottom: 0;
-  }
+@media (--lg) {
+  margin-left: 20rem;
+  margin: 0 0 2rem 20rem;
+  padding-bottom: 0;
+}
 }
 
 .Menu img {
@@ -95,15 +94,15 @@ button:hover {
   margin-right: 2rem;
   width: 6rem;
 
-  @media (--lg) {
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    border-right: 1px solid var(--grey-border);
-    width: 20rem;
-    padding: 4rem;
-  }
+@media (--lg) {
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  border-right: 1px solid var(--grey-border);
+  width: 20rem;
+  padding: 4rem;
+}
 }
 
 .Menu-link {
@@ -114,14 +113,14 @@ button:hover {
   line-height: 3rem;
   text-decoration: none;
 
-  @media (--md) {
-    margin-left: 3rem;
-  }
+@media (--md) {
+  margin-left: 3rem;
+}
 
-  @media (--lg) {
-    margin: 0 3rem 0 0;
-    line-height: 7.5rem;
-  }
+@media (--lg) {
+  margin: 0 3rem 0 0;
+  line-height: 7.5rem;
+}
 }
 
 .Menu-link--active {
@@ -132,9 +131,9 @@ button:hover {
   max-width: 60rem;
   margin: 0 auto;
 
-  @media (--lg) {
-    margin: 0 0 0 20rem;
-  }
+@media (--lg) {
+  margin: 0 0 0 20rem;
+}
 }
 
 .Example {
@@ -167,18 +166,18 @@ hr {
 }
 
 .People-list {
-  @media (--md) {
-    display: flex;
-    flex-wrap: wrap;
-  }
+@media (--md) {
+  display: flex;
+  flex-wrap: wrap;
+}
 }
 
 .People-person {
   border-bottom: 1px solid var(--grey-border);
   padding-bottom: 2rem;
 
-  @media (--md) {
-    flex-basis: 33%;
-    flex-shrink: 0;
-  }
+@media (--md) {
+  flex-basis: 33%;
+  flex-shrink: 0;
+}
 }
